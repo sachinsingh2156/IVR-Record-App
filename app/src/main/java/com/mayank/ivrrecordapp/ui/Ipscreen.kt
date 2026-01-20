@@ -331,7 +331,7 @@ fun IPAddressInput(ipAddress: String, onValueChange: (String) -> Unit, sharedPre
         },
         placeholder = {
             Text(
-                text = "Enter IP Address",
+                text = "Enter Server URL (e.g., https://domain.com)",
                 color = Color.Gray,
                 textAlign = TextAlign.Center
             )
@@ -349,7 +349,7 @@ fun IPAddressInput(ipAddress: String, onValueChange: (String) -> Unit, sharedPre
             focusedTextColor = Color(Constants.dark),
             cursorColor = Color(Constants.dark)
         ),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Uri)
     )
 }
 

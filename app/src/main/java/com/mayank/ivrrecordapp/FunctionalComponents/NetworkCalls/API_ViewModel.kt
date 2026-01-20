@@ -52,7 +52,23 @@ class API_ViewModel(application: Application) : AndroidViewModel(application)
 
     fun initialize(ipaddress : String)
     {
-        val baseurl = "http://$ipaddress:5000/api/"
+        // Ensure the URL has a proper scheme (http:// or https://)
+        var urlWithScheme = ipaddress.trim()
+        if (!urlWithScheme.startsWith("http://") && !urlWithScheme.startsWith("https://")) {
+            // Default to https:// if no scheme is provided
+            urlWithScheme = "https://$urlWithScheme"
+        }
+        
+        // Ensure the URL ends with /api/
+        val baseurl = if (urlWithScheme.endsWith("/api/")) {
+            urlWithScheme
+        } else if (urlWithScheme.endsWith("/api")) {
+            "$urlWithScheme/"
+        } else if (urlWithScheme.endsWith("/")) {
+            "${urlWithScheme}api/"
+        } else {
+            "$urlWithScheme/api/"
+        }
         val retrofit = RetrofitClient.getclient(baseurl)
         if (retrofit != null) {
             ApiInterface = retrofit.create(API_Interface::class.java)
